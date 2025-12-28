@@ -1,6 +1,6 @@
 ## What is `GPT2LMHeadModel`?
 
-`GPT2LMHeadModel` is not the name of a new model introduced by a specific research paper. Instead, it is the Hugging Face Transformers implementation class for **GPT-2 (a decoder-only Transformer)** with a **language modeling head** (a linear projection from hidden states to vocabulary logits). The key papers behind this implementation are the GPT / GPT-2 and Transformer works listed below.
+`GPT2LMHeadModel` , my study project ,  is not the name of a new model introduced by a specific research paper. Instead, it is the Hugging Face Transformers implementation class for **GPT-2 (a decoder-only Transformer)** with a **language modeling head** (a linear projection from hidden states to vocabulary logits). The key papers behind this implementation are the GPT / GPT-2 and Transformer works listed below.
 
 ## Core Papers and References
 
@@ -31,3 +31,30 @@
 [2]: https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf "Improving Language Understanding by Generative Pre-Training"
 [3]: https://arxiv.org/abs/1706.03762 "Attention Is All You Need"
 [4]: https://huggingface.co/docs/transformers/en/model_doc/gpt2 "Hugging Face GPT-2 Documentation"
+
+
+and ,
+rmdir /s /q outputs\mini_gpt2_med
+
+
+python src\train.py --train_txt data\train.txt --tokenizer_dir outputs\tokenizer_50k --seq_len 256 --epochs 8 --batch_size 16
+
+
+automatically  expand the script of the QS
+
+python src\expand_train.py --in_txt data\train.txt --out_txt data\train_aug.txt --target 8000 --seed 7
+python src\expand_train.py --in_txt data\train.txt --out_txt data\train_aug_50000.txt --target 50000 --seed 7
+
+
+!11111
+rmdir /s /q outputs\mini_gpt2_med
+
+
+roject>python src\train.py --train_txt data\train_aug_50000.txt --tokenizer_dir outputs\tokenizer_8k --seq_len 256 --epochs 8 --batch_size 16
+
+but if I want create the new token ,I can do like the way ,
+python src\train_tokenizer.py --text data\train_aug_50000.txt --vocab_size 8000 --out outputs\tokenizer_8k_50k
+
+
+rmdir /s /q outputs\mini_gpt2_med
+python src\train.py --train_txt data\train_aug_50000.txt --tokenizer_dir outputs\tokenizer_8k_50k --seq_len 256 --epochs 8 --batch_size 16
